@@ -6,7 +6,7 @@
 	<a href="{% url 'display1' %}" class = "btn btn-primary btn-mid" role = "button"> Display All Tasks</a>
 	<a href="{% url 'display2' %}" class = "btn btn-primary btn-mid" role = "button"> Display Completed Tasks</a>
 
-	<a href="#" class = "btn btn-primary btn-mid" role = "button"> Add Task </a>
+	<a href="{% url 'add' %}" class = "btn btn-primary btn-mid" role = "button"> Add Task </a>
 
 </div>
 
@@ -30,6 +30,10 @@
 				<td> {{item.description}} </td>
 				<td> {{item.priority}} </td>
 				<td> {{item.status}} </td>
+				<td>
+					<a href="{% url 'edit' item.pk %}" class = "btn btn-warning btn-sm" role="button"> Edit </a>
+					<a href="{% url 'delete' item.pk %}" class = "btn btn-danger btn-sm" role="button"> Delete </a>
+				</td>
 			</tr>
 
 		{% endfor %}
