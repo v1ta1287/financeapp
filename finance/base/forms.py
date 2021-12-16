@@ -1,7 +1,7 @@
 from django import forms
-from .models import Task
+from .models import Expense
 
-class TaskForm(forms.ModelForm):
+class ExpenseForm(forms.ModelForm):
 	class Meta:
-		model = Task
-		fields = ('name', 'description', 'priority', 'status')
+		model = Expense
+		fields = ('name', 'amount', 'category', 'importance')

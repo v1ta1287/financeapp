@@ -1,43 +1,6 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class = "button-group">
 
-	<a href="{% url 'display1' %}" class = "btn btn-primary btn-mid" role = "button"> Display All Tasks</a>
-	<a href="{% url 'display2' %}" class = "btn btn-primary btn-mid" role = "button"> Display Completed Tasks</a>
-
-	<a href="{% url 'add' %}" class = "btn btn-primary btn-mid" role = "button"> Add Task </a>
-
-</div>
-
-<br>
-
-<h4> Currently Viewing {{ header }} </h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Task</th>
-      <th scope="col">Description</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-	<tbody>
-		{% for item in items %}
-			<tr>
-				<td> {{item.name}} </td>
-				<td> {{item.description}} </td>
-				<td> {{item.priority}} </td>
-				<td> {{item.status}} </td>
-				<td>
-					<a href="{% url 'edit' item.pk %}" class = "btn btn-warning btn-sm" role="button"> Edit </a>
-					<a href="{% url 'delete' item.pk %}" class = "btn btn-danger btn-sm" role="button"> Delete </a>
-				</td>
-			</tr>
-
-		{% endfor %}
-	</tbody>
-  </tbody>
-</table>
+	<h1> Welcome ! </h1>
 {% endblock %}

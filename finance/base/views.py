@@ -12,50 +12,50 @@ def index(request):
 	return render(request, 'index.html')
 
 def display_all(request):
-	items =  Task.objects.all()
+	items =  Expense.objects.all()
 	context = {
 		'items': items,
-		'header': 'All Tasks'
+		'header': 'All Expenses'
 	}
-	return render(request, 'index.html', context)
+	return render(request, 'expenses.html', context)
 
-def display_done(request):
-	items =  Task.objects.all().filter(status = "DONE")
+def display_important(request):
+	items =  Expense.objects.all().filter(importance__gte = 5)
 	context = {
 		'items': items,
-		'header': 'Completed Tasks'
+		'header': 'Important Expenses'
 	}
-	return render(request, 'index.html', context)
+	return render(request, 'expenses.html', context)
 
-def add_task(request):
+def add_expense(request):
 	if request.method == "POST":
-		form = TaskForm(request.POST)
+		form = ExpenseForm(request.POST)
 
 		if form.is_valid():
 			form.save()
-			return redirect('index')
+			return redirect('display1')
 	else: 
-		form = TaskForm()
+		form = ExpenseForm()
 		return render(request, 'add_new.html', {'form': form})
 
-def edit_task(request, pk):
+def edit_expense(request, pk):
 	item = get_object_or_404(Task, pk = pk)
 
 	if request.method =="POST":
-		form = TaskForm(request.POST, instance = item)
+		form = ExpenseForm(request.POST, instance = item)
 		if form.is_valid():
 			form.save()
-			return redirect('index')
+			return redirect('display1')
 
 	else:
-		form = TaskForm(instance = item)
+		form = ExpenseForm(instance = item)
 		return render(request, 'edit.html', {'form': form})
 
-def delete_task(request,pk):
-	Task.objects.filter(id=pk).delete()
-	items = Task.objects.all()
+def delete_expense(request,pk):
+	Expense.objects.filter(id=pk).delete()
+	items = Expense.objects.all()
 
 	context = {
 		'items': items
 	}
-	return render(request, 'index.html')
+	return render(request, 'expenses.html')

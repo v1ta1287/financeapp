@@ -5,29 +5,27 @@ class Stats(models.Model):
 	salary = models.IntegerField()
 
 class Expense(models.Model):
+	name = models.CharField(max_length = 20)
 	amount = models.IntegerField()
-	category = models.CharField(max_length = 20)
-
-
-class Task(models.Model):
-	name = models.CharField(max_length = 100, blank = False)
-	description = models.TextField()
-
 	choices = (
-		('DONE', 'Task has been completed'),
-		('IN-PROGRESS', 'Task still needs to be completed'),
-		('NOT STARTED', 'Task has not been started')
+		('GROCERIES', 'Money spent on groceries'),
+		('BILLS', 'Money spent on water/electricity/internet bills'),
+		('RENT', 'Money spent on rent'),
+		('OTHER', 'Other weekly expenses')
+
 	)
-
-	priority = models.IntegerField()
-	status = models.CharField(max_length = 20, choices = choices, default = 'NOT STARTED')
-
+	category = models.CharField(max_length = 20, choices = choices, default = 'OTHER')
+	importance = models.IntegerField()
 	updated = models.DateTimeField(auto_now = True)
 	created = models.DateTimeField(auto_now_add = True)
 
 	class Meta:
 		ordering = ['-updated', '-created']
-		
+
 	def __str__(self):
-		return 'Task : {0}'.format(self.name)
+		return 'Expense : {0}'.format(self.name)
+
+
+
+
 
