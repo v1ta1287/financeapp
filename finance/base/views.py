@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Sum
 from .models import *
 from .forms import *
 from django.shortcuts import get_object_or_404
@@ -41,17 +42,23 @@ def index(request):
 @login_required(login_url='login')
 def display_all(request):
 	items =  Expense.objects.all().filter(user = request.user)
+	total = items.aggregate(Sum('amount'))
+
 	context = {
 		'items': items,
-		'header': 'All Expenses'
+		'header': 'All Expenses', 
+		'total' : total['amount__sum'],
+
 	}
 	return render(request, 'expenses.html', context)
 
 def display_important(request):
 	items =  Expense.objects.all().filter(importance__gte = 5).filter(user = request.user)
+	total = items.aggregate(Sum('amount'))
 	context = {
 		'items': items,
-		'header': 'Important Expenses'
+		'header': 'Important Expenses',
+		'total' : total['amount__sum'],
 	}
 	return render(request, 'expenses.html', context)
 
@@ -74,7 +81,9 @@ def edit_expense(request, pk):
 	if request.method =="POST":
 		form = ExpenseForm(request.POST, instance = item)
 		if form.is_valid():
-			form.save()
+			expense = form.save(commit=False)
+			expense.user = request.user
+			expense.save()
 			return redirect('display1')
 
 	else:
@@ -89,3 +98,9 @@ def delete_expense(request,pk):
 		'items': items
 	}
 	return render(request, 'expenses.html')
+
+def display_statistics(request):
+	return render(request, 'stats.html')
+	
+def display_calculator(request):
+	return render(request, 'calculator.html')

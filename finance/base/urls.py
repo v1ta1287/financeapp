@@ -10,4 +10,6 @@ urlpatterns = [
 	path('add', views.add_expense, name='add'),
 	path('edit/<int:pk>/', views.edit_expense, name='edit'),
 	path('delete/<int:pk>/', views.delete_expense, name='delete'),
+	path('calculator', views.display_calculator, name='calculator'),
+	path('statistics' ,views.display_statistics, name='stats'),
 ]

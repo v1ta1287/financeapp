@@ -4,9 +4,9 @@
 <div class = "button-group">
 
 	<a href="{% url 'display1' %}" class = "btn btn-primary btn-mid" role = "button"> Display All Expenses</a>
-	<a href="{% url 'display2' %}" class = "btn btn-primary btn-mid" role = "button"> Display Import Expenses </a>
+	<a href="{% url 'display2' %}" class = "btn btn-primary btn-mid" role = "button"> Display Important Expenses </a>
 
-	<a href="{% url 'add' %}" class = "btn btn-primary btn-mid" role = "button"> Add Task </a>
+	<a href="{% url 'add' %}" class = "btn btn-primary btn-mid" role = "button"> Add Expense </a>
 
 </div>
 
@@ -40,4 +40,10 @@
 	</tbody>
   </tbody>
 </table>
+
+<br>
+
+<div>
+	<h5> Total expenses: ${{total}}</h5>
+</div>
 {% endblock %}
